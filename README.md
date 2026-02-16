@@ -1,128 +1,63 @@
-# MentorBit-╠══██████████████══╣
-
-╠══██████   DESCRIPCION   ████████══╣.
-
-Si estás empezando en el mundo de la electrónica, ¡no te preocupes! MentorBit está pensado para que aprender sea fácil y divertido. Esta placa ya incluye un montón de componentes (LEDs, pulsadores, pantallas, etc.) y utiliza conectores especiales (JST) para que puedas añadir nuevos sensores y módulos sin tener que pelearte con un montón de cables. Pásate por nuestra web para saber más de MentorBit y nuestros productos [pinchando aquí](https://digitalcodesign.com/).
-
-![Render del MentorBit módulo matriz de pulsadores.](╠══██████████████══╣)
-
-╠══███████   DESCRIPCION DE QUE SE PUEDE HACER (PEQUEÑA)   ███████══╣
-
----
-
+# OrbitoBotonera
 ## Descripción
+Esta libreria esta pensada para ser usadada junto con el modulo mochila botonera y el robot Orbito. Con esta se pueden controlar y obtener el estado de los pulsadores de la mochila
+## Caracteristicas
+Esta libreria permite obtener el estado de los pulsadores de la botonera. Debido a la cantidad de botones, se han separado estos en dos zonas bien diferenciadas, una cruceta, con 5 pulsadores y un panel, con 7 pulsadores. Para leer el estado de un pulsador se debe utilizar el método `leerPulsador(...)`
+## Modo de empleo
+1. **Instalación**
+    * Abre el IDE compatible con MentorBit.
+    * Ve a "Herramientas" -> "Gestionar librerías..."
+    * Busca "OrbitoBotonera" e instálala.
+    * Asegurate de tener todas las dependencias:
+      * `OrbitoBotonera`en la versión **1.0.0** o superior
+      * `Orbito` en la versión **1.0.0** o superior
+      * `Adafruit GFX Library` en la versión **1.12.4** o superior
+      * `Adafruit BusIO` en la versión **1.17.4** o superior
+      * `Adafruit ST7735 and ST7789 Library` en la versión **1.10.3** o superior
+2. **Ejemplo Básico**
+```c++
+// Se incluyen las librerias necesarias
+#include <OrbitoBotonera.h>
 
-### ¿Qué es ╠══██████████████══╣ ?
-
-╠══███████   DESCRIPCION DEL MODULO AL CUAL VA DIRIGIDA LA LIBRERIA███████══╣
-
-Este tipo de módulo es ideal para:
-
-- ╠══██████████████══╣.
-- ╠══██████████████══╣.
-- ╠══██████████████══╣.
-
----
-
-### ¿Qué hace esta librería?
-
-La librería **╠══██████████████══╣** permite:
-
-- ╠══██████████████══╣.
-- ╠══██████████████══╣.
-- ╠══██████████████══╣.
-
----
-
-### ¿Qué puedes construir con este módulo?
-
-- ╠══██████████████══╣.
-- ╠══██████████████══╣.
-- ╠══██████████████══╣.
-
----
-
-## Cómo empezar
-
-### 1. **Conexión del Módulo**
-
-╠══███████   EXPLICAR LA CONEXION DEL MODULO CON MENTORBIT   ███████══╣.
-
-
-### 2. **Instalación de la Librería**
-
-- Abre tu entorno de programación IDE de Arduino.
-- Ve al menú *Programa -> Incluir Librería -> Administrar Librerías...*
-- En el buscador, escribe ***MentorBit-╠══██████████████══╣*** y haz clic en "Instalar".
-
-![Ejemplo de búsqueda en el gestor de librerías del IDE de Arduino.](https://github.com/DigitalCodesign/MentorBit-╠══██████████████══╣/blob/main/assets/library_instalation_example.png)
-
----
-
-## Ejemplo Básico: ╠══██████████████══╣
-
-╠══███████   CAMBIAR EJEMPLO   ███████══╣
-
-Este ejemplo lee el estado de uno de los 16 pulsadores y lo imprime por el monitor serie.
-
-```cpp
-// Se incluye la libreria MentorBitMatrizPulsadores
-#include <MentorBitMatrizPulsadores.h>
-
-// Se define la dirección I2c en la cual se encuentra la matriz de pulsadores
-// y tambien se define que pin de la matriz se quiere utilizar
-#define DireccionI2c 0x26
-#define Pulsador 2
-
-// Se crea el objeto Matriz
-MentorBitMatrizPulsadores matriz;
-
+// Se declara el objeto Botonera
+OrbitoBotonera Botonera;
 
 void setup() {
-    // Inicializamos el bus serial a una velocidad de 9600 baudios
-    Serial.begin(9600);
-    // Inicializamos la Matriz de pulsadores
-    matriz.begin(DireccionI2c);
+  // Se inicializa el robot
+  Orbito.begin();
+  // Se inicializa el monitor serial
+  Serial.begin(9600);
+  Serial.println("Iniciando test botonera");
 }
 
 void loop() {
-    if(matriz.leerPulsador(Pulsador) == LOW){ // Se lee el estado del pulsador de la matriz
-        // Imprimir por serial que se ha presionado el pulsador
-        Serial.println("Se ha presionado el pulsador numero " + String(Pulsador));
-        // Pequeño delay para evitar que lea dos o más veces una unica pulsación
-        delay(1000);
-    }
+  // Mostrar mensaje por el monitor serial si se presiona el boton central de la cruceta
+  if(Botonera.leerPulsador(Botonera.cruceta.centro)){
+    Serial.println("Se ha presionado el boton central de la cruceta");
+    // Retardo para no saturar el monitor serial
+    delay(500);
+  }
 }
+
 ```
-
----
-
-## Funciones Principales
-
-╠══███████   RELLENAR   ███████══╣
-
-- `bool leerPulsador(uint8_t Pin)`  
-  Lee el estado de un determinado pulsador.
-
----
-
-## Atributos Principales (clase matriz)
-
-╠══███████   RELLENAR   ███████══╣
-
-- `matriz.PUERTO_A`  
-  Atributo para seleccionar el puerto A en varios métodos.
-
----
-
-## Recursos Adicionales
-
-╠══███████   CAMBIRAR ENLACES   ███████══╣
-
-- [Web del fabricante](https://digitalcodesign.com/)
-- [Tienda Online de Canarias](https://canarias.digitalcodesign.com/shop)
-- [Tienda Online de Península](https://digitalcodesign.com/shop)
-- [Web Oficial de MentorBit](https://digitalcodesign.com/mentorbit)
-- [Web Oficial del Módulo Matriz de Pulsadores](https://canarias.digitalcodesign.com/shop/00038775-mentorbit-modulo-matriz-de-pulsadores-i2c-8105?page=2&category=226&order=create_date+desc#attr=)
-- [Manual de usuario del Módulo](https://drive.google.com/file/d/1r-NqhV3tNsIOfbVwdaLwVG5oWKHT8m4R/view?usp=drive_link)
-- [Modelo 3D del Módulo en formato .STEP](https://drive.google.com/file/d/1VcCUQ8EQWMD2fs43Jvh-ibaW29CgUGun/view?usp=drive_link)
+## Constructor y métodos básicos
+### Constructor
+* `OrbitoBotonera` crea un objeto de esta clase con el nombre indicado
+### SubClases
+* `Cruceta` Clase que agrupa todos los atributos referentes a los pulsadores de la cruceta
+* `Panel` Clase que agrupa todos los atributos referentes a los pulsadores del panel
+### Métodos
+* `leerPulsador()` devuelve el valor de temperatura en grados centígrados (ºC)
+### Atributos
+* `arriba` Selecciona el pulsador superior de la cruceta
+* `abajo` Selecciona el pulsador inferior de la cruceta
+* `izquierda` Selecciona el pulsador izquierdo de la cruceta
+* `derecha` Selecciona el pulsador derecho de la cruceta
+* `centro` Selecciona el pulsador central de la cruceta
+* `Pulsador1` Selecciona el pulsador 1 del panel
+* `Pulsador2` Selecciona el pulsador 2 del panel
+* `Pulsador3` Selecciona el pulsador 3 del panel
+* `Pulsador4` Selecciona el pulsador 4 del panel
+* `Pulsador5` Selecciona el pulsador 5 del panel
+* `Pulsador6` Selecciona el pulsador 6 del panel
+* `Pulsador7` Selecciona el pulsador 7 del panel

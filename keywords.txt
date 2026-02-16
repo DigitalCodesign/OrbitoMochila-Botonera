@@ -1,5 +1,34 @@
-NombreClase KEYWORD1
-Metodo1 KEYWORD2
-Metodo2 KEYWERD2
-Atributo1 LITERAL1
-Atributo1 LITERAL1
+#######################################
+# Syntax Coloring Map For OrbitoBotonera
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Botonera	KEYWORD1
+Cruceta	KEYWORD1
+Panel	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+leerPulsador	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+arriba	LITERAL1
+abajo	LITERAL1
+izquierda	LITERAL1
+derecha	LITERAL1
+centro	LITERAL1
+Pulsador1	LITERAL1
+Pulsador2	LITERAL1
+Pulsador3	LITERAL1
+Pulsador4	LITERAL1
+Pulsador5	LITERAL1
+Pulsador6	LITERAL1
+Pulsador7	LITERAL1
